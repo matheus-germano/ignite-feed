@@ -29,6 +29,11 @@ export function Post({ author, content, publishedAt }) {
     setNewCommentText('');
   }
 
+  function deleteComment(commentToDelete) {
+    const commentsWithoutDeletedOne = comments.filter(comment => comment !== commentToDelete);
+    setComments(commentsWithoutDeletedOne);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -62,6 +67,7 @@ export function Post({ author, content, publishedAt }) {
           placeholder="Deixe um comentário"
           value={newCommentText}
           onChange={e => setNewCommentText(e.target.value)}
+          required
         />
 
         <footer>
@@ -74,6 +80,7 @@ export function Post({ author, content, publishedAt }) {
           <Comment
             key={comment}
             content={comment}
+            onDeleteComment={deleteComment}
           />
         ))}
       </div>
